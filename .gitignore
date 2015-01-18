@@ -1,0 +1,8 @@
+# Gedit backups
+*~
+
+# Build Dir
+build/
+
+# Scons
+.sconsign.dblite
