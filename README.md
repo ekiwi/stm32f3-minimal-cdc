@@ -1,5 +1,7 @@
 # stm32f3-minimal-cdc
 
+[![Build Status](https://travis-ci.org/ekiwi/stm32f3-minimal-cdc.svg?branch=master)](https://travis-ci.org/ekiwi/stm32f3-minimal-cdc)
+
 This is a weekend project that tries to allow serial communication
 with an STM32F3 discovery board via USB.
 
