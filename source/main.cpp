@@ -20,7 +20,7 @@
 
 #include <xpcc/architecture.hpp>
 #include <xpcc/debug/logger.hpp>
-#include <xpcc/processing/periodic_timer.hpp>
+#include <xpcc/processing/timer.hpp>
 #include "../xpcc/examples/stm32f3_discovery/stm32f3_discovery.hpp"
 #include "usb.hpp"
 
@@ -30,7 +30,7 @@ xpcc::log::Logger xpcc::log::info(loggerDevice);
 
 static void printGpl();
 
-xpcc::PeriodicTimer<> timer;
+xpcc::PeriodicTimer timer(500);
 
 MAIN_FUNCTION
 {
@@ -62,8 +62,6 @@ MAIN_FUNCTION
 
 	XPCC_LOG_INFO << "Info: connected" << xpcc::endl;
 
-	timer.restart(500);
-
 	while (1)
 	{
 		uint8_t data;
@@ -71,7 +69,7 @@ MAIN_FUNCTION
 			XPCC_LOG_INFO << "+1" << xpcc::endl;
 			Usb::write(data);
 		}
-		if(timer.isExpired()) {
+		if(timer.execute()) {
 			LedSouth::toggle();
 		}
 	}
