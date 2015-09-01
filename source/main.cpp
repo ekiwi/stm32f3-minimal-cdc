@@ -22,6 +22,7 @@
 #include <xpcc/debug/logger.hpp>
 #include <xpcc/processing/timer.hpp>
 #include "../xpcc/examples/stm32f3_discovery/stm32f3_discovery.hpp"
+using namespace Board;
 #include "usb.hpp"
 
 xpcc::IODeviceWrapper<Usart2, xpcc::IOBuffer::DiscardIfFull> loggerDevice;
@@ -34,8 +35,8 @@ xpcc::PeriodicTimer timer(500);
 
 MAIN_FUNCTION
 {
-	defaultSystemClock::enable();
-	xpcc::cortex::SysTickTimer::enable();
+	systemClock::enable();
+	xpcc::cortex::SysTickTimer::initialize<systemClock>();
 
 	LedNorth::setOutput(xpcc::Gpio::Low);
 	LedNorthEast::setOutput(xpcc::Gpio::Low);
@@ -48,7 +49,7 @@ MAIN_FUNCTION
 
 	GpioOutputA2::connect(Usart2::Tx);
 	GpioInputA3::connect(Usart2::Rx);
-	Usart2::initialize<defaultSystemClock, 115200>(10);
+	Usart2::initialize<systemClock, 115200>(10);
 
 	printGpl();
 
